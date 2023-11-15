@@ -25,6 +25,5 @@ jobs:
     - name: Build and push Docker image
       run: |
         docker buildx create --use
-        docker buildx build --platform linux/amd64,linux/arm64 -t docker.pkg.github.com/${{ github.zoealice5 }}/${{ github.ue19_labo09-10 }}/labo:latest .
-        docker push docker.pkg.github.com/${{ github.zoealice5 }}/${{ github.ue19_labo09-10 }}/labo:latest
-
+        docker buildx build --platform linux/amd64,linux/arm64 -t docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}/labo:latest .
+        docker push docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}/labo:latest
