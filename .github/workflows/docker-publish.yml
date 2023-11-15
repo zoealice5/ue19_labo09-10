@@ -27,3 +27,13 @@ jobs:
         docker buildx create --use
         docker buildx build --platform linux/amd64,linux/arm64 -t docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}/labo:latest .
         docker push docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}/labo:latest
+    
+    - name: Scan for vulnerabilities
+      run: |
+        docker run --rm -v $PWD:/work -w /work aquasec/trivy --severity HIGH,CRITICAL -o trivy_report.json docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}/labo:latest
+
+    - name: Upload Trivy report
+      uses: actions/upload-artifact@v2
+      with:
+        name: trivy-report
+        path: trivy_report.json
